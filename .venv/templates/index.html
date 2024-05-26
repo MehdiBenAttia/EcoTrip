@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TravelAdvisor Bot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #74ebd5, #ACB6E5);
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            width: 100%;
+            text-align: center;
+            color: #333;
+        }
+        h1 {
+            font-size: 3em;
+            margin: 0.5em 0;
+            color: #fff;
+        }
+        h4 {
+            margin: 0.5em 0 1.5em 0;
+            color: #fff;
+        }
+        #chatbox {
+            width: 90%;
+            max-width: 800px;
+            padding: 20px;
+            overflow-y: auto;
+            max-height: 60vh;
+            margin-bottom: 20px;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* Internet Explorer 10+ */
+        }
+        #chatbox::-webkit-scrollbar {
+            display: none; /* Safari and Chrome */
+        }
+        #userInput {
+            width: 90%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+        #homeInput, #destinationInput, #textInput {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            margin-bottom: 10px;
+        }
+        #userInput {
+            width: 90%;
+            max-width: 800px;
+            display: flex;
+            margin-bottom: 20px;
+        }
+        #textInput {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        .userText, .botText {
+            display: flex;
+            margin: 10px 0;
+        }
+        .userText span, .botText span {
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-size: 1em;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+        .userText {
+            justify-content: flex-end;
+        }
+        .userText span {
+            background-color: #0084ff;
+            color: #fff;
+        }
+        .botText {
+            justify-content: flex-start;
+        }
+        .botText span {
+            background-color: #e5e5ea;
+            color: #333;
+        }
+        .card {
+            background: #007bff;
+            color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 10px 0;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+        .card h3 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><b>TravelAdvisor Bot</b></h1>
+        <h4><b>Your Personal Travel Guide</b></h4>
+        <div id="chatbox">
+            <p class="botText">
+                <span>Hi! I'm your AI Travel Advisor. How can I assist you today?</span>
+            </p>
+        </div>
+        <div id="userInput">
+            <select id="homeInput" name="home">
+                <option value="Paris">Paris</option>
+                <option value="Madrid">Madrir</option>
+                <option value="Lisbonne">Lisbonne</option>
+                <!-- Add more options as needed -->
+            </select>
+            <select id="destinationInput" name="destination">
+                <option value="Rome">Rome</option>
+                <option value="Brussels">Brussels</option>
+                <option value="Berlin">Berlin</option>
+                <!-- Add more options as needed -->
+            </select>
+            <input id="textInput" type="text" name="msg" placeholder="Type your message here..." />
+        </div>
+    </div>
+    <script>
+        function getBotResponse() {
+            var home = $("#homeInput").val();  // Get user-selected home value
+            var destination = $("#destinationInput").val();  // Get user-selected destination value
+            var rawText = $("#textInput").val();
+            var userHtml = '<p class="userText"><span>' + rawText + '</span></p>';
+            $("#textInput").val("");
+            $("#chatbox").append(userHtml);
+            document.getElementById("userInput").scrollIntoView({ block: "start", behavior: "smooth" });
+
+            $.get("/get", { home: home, destination: destination, msg: rawText }).done(function (data) {
+                if (Array.isArray(data)) {
+                    data.forEach(function (sublist, index) {
+                        var cardHtml = '<div class="card"><h3>Recommendation ' + (index + 1) + '</h3><ul>';
+                        if (Array.isArray(sublist)) {
+                            sublist.forEach(function (point) {
+                                cardHtml += '<li>' + point + '</li>';
+                            });
+                            cardHtml += '</ul></div>';
+                            $("#chatbox").append(cardHtml);
+                        } else {
+                            var errorHtml = '<p class="botText"><span>Invalid data format</span></p>';
+                            $("#chatbox").append(errorHtml);
+                        }
+                    });
+                } else {
+                    var errorHtml = '<p class="botText"><span>Sorry, something went wrong. Please try again.</span></p>';
+                    $("#chatbox").append(errorHtml);
+                }
+                document.getElementById("userInput").scrollIntoView({ block: "start", behavior: "smooth" });
+            }).fail(function () {
+                var errorHtml = '<p class="botText"><span>Sorry, something went wrong. Please try again.</span></p>';
+                $("#chatbox").append(errorHtml);
+                document.getElementById("userInput").scrollIntoView({ block: "start", behavior: "smooth" });
+            });
+        }
+
+        $("#textInput").keypress(function (e) {
+            if (e.which == 13) {
+                getBotResponse();
+            }
+        });
+    </script>
+</body>
+</html>

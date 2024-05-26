@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Mirrored from themesbrand.com/skote-symfony/layouts/dashboard-blog.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 17 Mar 2022 01:04:30 GMT -->
+  <head>
+    <meta charset="utf-8" />
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      content="Premium Multipurpose Admin & Dashboard Template"
+      name="description"
+    />
+   
+    <!-- App favicon -->
+    <link
+      rel="shortcut icon"
+    />
+    <link
+      href="{{ url_for('static', filename='assets/libs/select2/css/select2.min.css' )  }}"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <!-- Bootstrap Css -->
+    <link
+      id="bootstrap-style"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <!-- Icons Css -->
+    <link
+      href="{{ url_for('static', filename='assets/css/icons.min.css' )  }}"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <!-- App Css-->
+    <link
+      href="{{ url_for('static', filename='assets/css/app.min.css' )  }}"
+      id="app-style"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='DataTables/media/css/jquery.dataTables.min.css' )  }}">
+  </head>
+
+  <body data-sidebar="dark">
+    <!-- <body data-layout="horizontal" data-topbar="dark"> -->
+
+    <!-- Begin page -->
+
+    <div id="layout-wrapper">
+      <header id="page-topbar">
+        <div class="navbar-header ">
+          <div class="d-flex">
+            <!-- LOGO -->
+            <div class="navbar-brand-box">
+              <a href="/" class="logo">
+                <span class="logo-sm">
+                  <img
+                    alt=""
+                    height="30"
+                  />
+                </span>
+                <span class="logo-lg">
+                  <img
+                    alt=""
+                    height="40"
+                  />
+                </span>
+              </a>
+            </div>
+
+            <button
+              type="button"
+              class="btn btn-sm px-3 font-size-16 header-item waves-effect"
+              id="vertical-menu-btn"
+            >
+              <i class="fa fa-fw fa-bars"></i>
+            </button>
+            
+
+          </div>
+          <div class="topnav-centered">
+            <h3>EduXcel</h3>
+          </div>
+          
+        </div>
+      </header>
+    </div>
+   
+      </div>
+    </div>
+    
+
+    <div class="main-content">
+      <div class="page-content">
+        <div class="container-fluid">
+          <!-- start page title -->
+          
+          {% block content %} {% endblock %}
+        </div>
+      </div>
+    </div>
+
+   
+
+    <!-- JAVASCRIPT -->
+    <script src="{{ url_for('static', filename='assets/libs/jquery/jquery.min.js' )  }}"></script>
+    <script src="{{ url_for('static', filename='assets/libs/bootstrap/js/bootstrap.bundle.min.js' )  }}"></script>
+    <script src="{{ url_for('static', filename='assets/libs/metismenu/metisMenu.min.js' )  }}"></script>
+    <script src="{{ url_for('static', filename='assets/libs/simplebar/simplebar.min.js' )  }}"></script>
+    <script src="{{ url_for('static', filename='assets/libs/node-waves/waves.min.js' )  }}"></script>
+    
+
+    <script src="{{ url_for('static', filename='assets/libs/select2/js/select2.min.js' )  }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/pages/form-advanced.init.js' )  }}"></script>
+
+    <script src="{{ url_for('static', filename='assets/js/pages/dashboard-blog.init.js' )  }}"></script>
+
+    <script src="{{ url_for('static', filename='assets/js/app.js' )  }}"></script>
+
+    <script type="text/javascript" src="{{ url_for('static', filename='DataTables/media/js/jquery.js' )  }}"></script>
+
+    <script type="text/javascript" src="{{ url_for('static', filename='DataTables/media/js/jquery.dataTables.min.js' )  }}"></script>
+   
+    <script type="text/javascript" src="{{ url_for('static', filename='assets/js/tableau.js' )  }}"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="{{ url_for('static', filename='assets/libs/echarts/echarts.min.js' )  }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/pages/echarts.init.js' )  }}"></script>
+
+
+
+
+   
+  </body>
+
+  <!-- Mirrored from themesbrand.com/skote-symfony/layouts/dashboard-blog.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 17 Mar 2022 01:04:31 GMT -->
+</html>
